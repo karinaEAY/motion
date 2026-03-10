@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Gift Giveaway</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
+        
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-600px) scale(1.5); opacity: 0; }
+        }
+        .animate-float {
+            animation: floatUp linear infinite;
+        }
+        .font-brand { 
+            font-family: 'Caveat', 'Brush Script MT', cursive; 
+        }
+        /* Smooth transitions for screens */
+        .screen-transition {
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-100 flex items-center justify-center p-4 overflow-hidden">
+
+    <!-- Realistic iPhone Mockup Frame -->
+    <div class="relative w-[320px] h-[660px] bg-black rounded-[3rem] shadow-[0_0_50px_rgba(0,0,0,0.5)] border-[4px] border-gray-800 flex items-center justify-center scale-95 sm:scale-100 origin-center">
+        
+        <!-- Hardware Elements -->
+        <div class="absolute top-[110px] -left-[6px] w-[3px] h-[25px] bg-gray-700 rounded-l-md"></div>
+        <div class="absolute top-[150px] -left-[6px] w-[3px] h-[45px] bg-gray-700 rounded-l-md"></div>
+        <div class="absolute top-[205px] -left-[6px] w-[3px] h-[45px] bg-gray-700 rounded-l-md"></div>
+        <div class="absolute top-[130px] -right-[6px] w-[3px] h-[60px] bg-gray-700 rounded-r-md"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[110px] h-[24px] bg-black rounded-b-3xl z-50"></div>
+        
+        <!-- Inner App Canvas -->
+        <div id="app-canvas" class="w-[96%] h-[98%] rounded-[2.8rem] relative overflow-hidden flex flex-col transition-colors duration-1000 bg-gradient-to-b from-white to-white">
+
+            <!-- Animated 3D Hand Cursor -->
+            <div id="hand" class="absolute z-[100] pointer-events-none transition-all duration-700 ease-in-out opacity-0" style="left: 150px; top: 600px; transform: translate(-20%, -5%) scale(1);">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/009/874/640/small/hand-with-thumb-up-thumb-up-sing-hand-pointing-a-finger-3d-render-png.png" class="w-20 drop-shadow-2xl" alt="Hand Cursor" />
+            </div>
+
+            <!-- Global Header -->
+            <div id="global-header" class="absolute w-full text-center pt-10 px-4 z-10 transition-opacity duration-500 opacity-0 pointer-events-none">
+                <p class="text-emerald-600 text-[10px] font-bold tracking-widest uppercase mb-1 flex items-center justify-center gap-1">
+                    <svg class="w-3 h-3 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                    SPRING DROP
+                </p>
+                <h1 class="text-5xl text-emerald-700 font-brand font-bold mb-1 tracking-wide">
+                    Phone Gift
+                </h1>
+            </div>
+
+            <!-- SCREEN 0: White Play Screen -->
+            <div id="screen-0" class="absolute inset-0 flex flex-col items-center justify-center z-40 screen-transition opacity-100">
+                <button id="play-btn" onclick="startApp()" class="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg animate-pulse cursor-pointer hover:scale-105 active:scale-95 transition-all focus:outline-none">
+                    <svg class="w-10 h-10 text-white ml-1.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"></path></svg>
+                </button>
+                <h2 class="text-xl font-bold text-gray-800 mt-6 font-brand tracking-wider">Start Experience</h2>
+            </div>
+
+            <!-- SCREEN 1: Spin Wheel -->
+            <div id="screen-1" class="absolute inset-0 flex flex-col items-center justify-center pt-36 pb-4 screen-transition opacity-0 pointer-events-none -translate-x-full">
+                <div class="relative mt-6">
+                    <!-- Pointer Triangle -->
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[14px] border-t-emerald-500 z-20" style="filter: drop-shadow(0 2px 2px rgba(0,0,0,0.15))"></div>
+                    
+                    <!-- The Wheel -->
+                    <div id="wheel" class="w-56 h-56 rounded-full relative overflow-hidden shadow-xl border-[3px] border-white" style="transition: transform 3s cubic-bezier(0.25, 0.1, 0.2, 1.05); transform: rotate(0deg); background: conic-gradient(from -22.5deg, #ffffff 0deg 45deg, #dcfce7 45deg 90deg, #ffffff 90deg 135deg, #dcfce7 135deg 180deg, #ffffff 180deg 225deg, #dcfce7 225deg 270deg, #ffffff 270deg 315deg, #dcfce7 315deg 360deg)">
+                        <!-- Phones (Injected via JS) -->
+                    </div>
+
+                    <!-- Center Spin Button -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 bg-emerald-500 rounded-full shadow-lg flex items-center justify-center z-20">
+                        <svg class="w-6 h-6 text-white animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                </div>
+                
+                <p class="mt-auto mb-4 text-[8px] text-emerald-800/40 font-bold tracking-wider uppercase">
+                    POWERED BY SMARTCHAIN TECH V2.0
+                </p>
+            </div>
+
+            <!-- SCREEN 2: Claim Form -->
+            <div id="screen-2" class="absolute inset-0 flex flex-col items-center pt-36 px-5 screen-transition opacity-0 pointer-events-none translate-x-full">
+                <div class="text-center mb-5">
+                    <h2 class="text-2xl font-bold text-emerald-600 mb-0.5">Spring Success!</h2>
+                </div>
+
+                <div class="w-full space-y-3 mb-5">
+                    <input type="text" id="input-name" placeholder="Your Name" readonly class="w-full px-4 py-3 rounded-xl border border-yellow-200 bg-white shadow-sm focus:outline-none transition-all placeholder-gray-400 text-gray-700 font-bold text-sm" />
+                    <input type="text" id="input-address" placeholder="Delivery Address" readonly class="w-full px-4 py-3 rounded-xl border border-yellow-200 bg-white shadow-sm focus:outline-none transition-all placeholder-gray-400 text-gray-700 font-bold text-sm" />
+                </div>
+
+                <div class="w-full bg-white/70 backdrop-blur-sm rounded-xl p-3 mb-6 shadow-sm border border-white">
+                    <p class="text-[10px] text-emerald-700 font-bold uppercase mb-2 ml-1 tracking-wide">SPRING BUNDLE</p>
+                    <div class="flex justify-between items-center px-1">
+                        <div class="flex flex-col items-center gap-1">
+                            <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                                <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <span class="text-[9px] font-semibold text-gray-600">Eco Case</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                                <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <span class="text-[9px] font-semibold text-gray-600">Charger</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1">
+                            <div class="w-8 h-8 bg-emerald-100 rounded-full flex items-center justify-center">
+                                <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                            </div>
+                            <span class="text-[9px] font-semibold text-gray-600">Audio Pods</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full bg-emerald-500 text-white text-center font-bold py-3.5 rounded-xl shadow-lg transition-all text-base">
+                    Collect My Gift
+                </div>
+            </div>
+
+            <!-- Virtual Keyboard (Visible only when filling form) -->
+            <div id="keyboard" class="absolute bottom-0 left-0 w-full bg-[#d1d5db] pt-2 pb-6 px-1 transition-transform duration-500 z-50 translate-y-full">
+                <!-- Keys Injected via JS -->
+            </div>
+
+            <!-- SCREEN 3: Success Confirmation -->
+            <div id="screen-3" class="absolute inset-0 flex flex-col items-center justify-center p-6 screen-transition opacity-0 pointer-events-none scale-95">
+                
+                <!-- Spring Particles Container -->
+                <div id="particles" class="absolute inset-0 pointer-events-none z-0"></div>
+
+                <div class="relative z-10 flex flex-col items-center text-center">
+                    <div class="w-20 h-20 bg-white rounded-full shadow-xl flex items-center justify-center mb-5 relative">
+                        <svg class="w-9 h-9 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg>
+                        <div class="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center border-2 border-white">
+                            <svg class="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <h2 class="text-2xl font-bold text-emerald-600 mb-1">Order Sent!</h2>
+                    <p class="text-emerald-800/70 mb-6 font-medium text-sm">Get ready for a fresh start.</p>
+                    
+                    <div class="flex items-center gap-2 px-5 py-2 bg-white/60 backdrop-blur-sm text-emerald-800 text-xs font-semibold rounded-full border border-emerald-200 shadow-sm">
+                        <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                        View Details
+                    </div>
+                </div>
+
+                <p class="absolute bottom-8 text-[8px] text-emerald-800/40 font-bold tracking-wider uppercase z-10">
+                    POWERED BY SMARTCHAIN TECH V2.0
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const delay = ms => new Promise(res => setTimeout(res, ms));
+        
+        // App State
+        let currentScreen = 0;
+        let rotation = 0;
+
+        // Elements
+        const canvas = document.getElementById('app-canvas');
+        const header = document.getElementById('global-header');
+        const hand = document.getElementById('hand');
+        const kbContainer = document.getElementById('keyboard');
+        const inputName = document.getElementById('input-name');
+        const inputAddress = document.getElementById('input-address');
+        const wheel = document.getElementById('wheel');
+        const particlesContainer = document.getElementById('particles');
+
+        // Phone Images Data
+        const phoneImages = [
+            'https://my-apple.com.ua/image/catalog/products/iphone/iphone-17-pro-max/iphone-17-pro-max-cosmic-orange-1.png',
+            'https://my-apple.com.ua/image/catalog/products/iphone/iphone-17-air/iphone-17-space-black-1.png',
+            'https://my-apple.com.ua/image/catalog/products/iphone/iphone-17-pro-max/iphone-17-pro-max-silver-1.png',
+            'https://my-apple.com.ua/image/catalog/products/iphone/iphone-17/iphone-17-Lavender-1.png',
+            'https://my-apple.com.ua/image/cache/catalog/products/iphone/iphone-17-air/iphone-17-sky-blue-1-700x700.png',
+            'https://prod-cdn.prod.asbis.io/s3size/el:t/rt:fill/plain/s3://cms/product/41/49/4149198f1713e718ba920b85acffb4f4/250915140038367093.webp',
+            'https://my-apple.com.ua/image/catalog/products/iphone/iphone-17-pro-max/iphone-17-pro-max-silver-1.png',
+            'https://my-apple.com.ua/image/catalog/products/iphone/iphone-17-air/iphone-17-space-black-1.png'
+        ];
+
+        // Virtual Keyboard Layout
+        const kbRows = [
+            ['Q','W','E','R','T','Y','U','I','O','P'],
+            ['A','S','D','F','G','H','J','K','L'],
+            ['Z','X','C','V','B','N','M'],
+            ['SPACE']
+        ];
+
+        // Initialize dynamic DOM elements
+        document.addEventListener('DOMContentLoaded', () => {
+            // Build Wheel
+            phoneImages.forEach((src, index) => {
+                const div = document.createElement('div');
+                div.className = "absolute inset-0 w-full h-full";
+                div.style.transform = `rotate(${index * 45}deg)`;
+                div.innerHTML = `
+                    <div class="absolute top-[3px] left-1/2 -translate-x-1/2 w-[44px] h-[78px] flex justify-center items-center">
+                        <img src="${src}" alt="Prize" class="w-full h-full object-contain drop-shadow-md" />
+                    </div>
+                `;
+                wheel.appendChild(div);
+            });
+
+            // Build Keyboard
+            let kbHTML = '<div class="flex flex-col gap-1.5">';
+            kbRows.forEach(row => {
+                kbHTML += '<div class="flex justify-center gap-1 px-0.5">';
+                row.forEach(key => {
+                    const widthClass = key === 'SPACE' ? 'w-32 h-8' : 'w-[26px] h-9';
+                    const text = key === 'SPACE' ? '' : key;
+                    kbHTML += `<div id="key-${key}" class="flex items-center justify-center rounded-[4px] shadow-sm text-[11px] font-semibold transition-all duration-100 bg-white text-gray-800 ${widthClass}">${text}</div>`;
+                });
+                kbHTML += '</div>';
+            });
+            kbHTML += '</div>';
+            kbContainer.innerHTML = kbHTML;
+
+            // Build Particles
+            for(let i=0; i<24; i++) {
+                const p = document.createElement('div');
+                p.className = 'absolute bottom-[-20px] text-2xl animate-float';
+                p.style.left = `${Math.random() * 100}%`;
+                p.style.animationDuration = `${2 + Math.random() * 3}s`;
+                p.style.animationDelay = `${Math.random() * 1.5}s`;
+                p.innerHTML = Math.random() > 0.66 ? '🌸' : Math.random() > 0.33 ? '🌼' : '✨';
+                particlesContainer.appendChild(p);
+            }
+        });
+
+        // Hand Controller
+        function setHandPos(x, y, clicked, visible) {
+            hand.style.left = `${x}px`;
+            hand.style.top = `${y}px`;
+            hand.style.transform = `translate(-20%, -5%) scale(${clicked ? 0.8 : 1})`;
+            hand.style.opacity = visible ? 1 : 0;
+        }
+
+        // Screen Controller
+        function changeScreen(num) {
+            currentScreen = num;
+            
+            // Hide all
+            for(let i=0; i<=3; i++) {
+                const s = document.getElementById(`screen-${i}`);
+                if(i === num) {
+                    s.classList.remove('opacity-0', 'pointer-events-none');
+                    s.classList.add('opacity-100');
+                    if(i === 1) s.classList.remove('-translate-x-full');
+                    if(i === 2) s.classList.remove('translate-x-full');
+                    if(i === 3) s.classList.replace('scale-95', 'scale-100');
+                } else {
+                    s.classList.add('opacity-0', 'pointer-events-none');
+                    s.classList.remove('opacity-100');
+                    if(i === 1 && num > 1) s.classList.add('-translate-x-full');
+                    if(i === 2 && num < 2) s.classList.add('translate-x-full');
+                }
+            }
+
+            // Global Header visibility
+            if (num > 0 && num < 3) {
+                header.classList.remove('opacity-0', 'pointer-events-none', 'absolute');
+                header.classList.add('opacity-100', 'relative');
+            } else {
+                header.classList.add('opacity-0', 'pointer-events-none', 'absolute');
+                header.classList.remove('opacity-100', 'relative');
+            }
+
+            // Background gradients
+            canvas.className = `w-[96%] h-[98%] rounded-[2.8rem] relative overflow-hidden flex flex-col transition-colors duration-1000 bg-gradient-to-b ${
+                num === 0 ? 'from-white to-white' :
+                num === 1 ? 'from-[#f0fdf4] to-[#ccfbf1]' :
+                num === 2 ? 'from-[#fefce8] to-[#fef08a]' :
+                'from-[#ecfdf5] to-[#a7f3d0]'
+            }`;
+        }
+
+        // Typewriter Effect
+        async function typeText(str, inputEl) {
+            for (let char of str) {
+                const displayChar = char === ' ' ? 'SPACE' : char.toUpperCase();
+                const keyEl = document.getElementById(`key-${displayChar}`);
+                
+                if (keyEl) {
+                    keyEl.classList.remove('bg-white', 'text-gray-800');
+                    keyEl.classList.add('bg-emerald-500', 'text-white', 'scale-95');
+                }
+                
+                inputEl.value += char;
+                await delay(150);
+                
+                if (keyEl) {
+                    keyEl.classList.add('bg-white', 'text-gray-800');
+                    keyEl.classList.remove('bg-emerald-500', 'text-white', 'scale-95');
+                }
+                await delay(50);
+            }
+        }
+
+        // Main Sequence
+        async function startApp() {
+            const playBtn = document.getElementById('play-btn');
+            if(playBtn) playBtn.style.pointerEvents = 'none'; // Prevent double clicking
+            
+            changeScreen(1);
+            
+            // SCREEN 1 Sequence
+            await delay(2000); // 2 second delay after pressing play
+            setHandPos(155, 380, false, true); // Move to flower
+            await delay(800);
+            setHandPos(155, 380, true, true); // Click
+            await delay(200);
+            setHandPos(155, 380, false, false); // Hide
+            
+            // Spin Wheel
+            rotation += 1800;
+            wheel.style.transform = `rotate(${rotation}deg)`;
+            await delay(3000);
+            
+            changeScreen(2);
+
+            // SCREEN 2 Sequence
+            await delay(500);
+            // Adjusted Y coordinate to exactly hit the Name field
+            setHandPos(155, 215, false, true); // Move to name
+            await delay(800);
+            setHandPos(155, 215, true, true); // Click
+            await delay(200);
+            setHandPos(155, 215, false, false); // Hide
+            
+            kbContainer.classList.remove('translate-y-full'); // Show KB
+            await delay(500);
+            
+            await typeText("Alex M", inputName);
+            await delay(400);
+
+            // Adjusted Y coordinate to exactly hit the Address field
+            setHandPos(155, 270, false, true); // Move to address
+            await delay(800);
+            setHandPos(155, 270, true, true); // Click
+            await delay(200);
+            setHandPos(155, 270, false, false); // Hide
+            
+            await typeText("Paris", inputAddress);
+            await delay(500);
+            
+            kbContainer.classList.add('translate-y-full'); // Hide KB
+            await delay(600);
+
+            // Perfectly centered to hit the Collect Button
+            setHandPos(155, 465, false, true); // Move to collect
+            await delay(800);
+            setHandPos(155, 465, true, true); // Click
+            await delay(200);
+            setHandPos(155, 465, false, false); // Final Hide
+            
+            await delay(300);
+            changeScreen(3); // Success Screen
+        }
+    </script>
+</body>
+</html>
